@@ -46,9 +46,9 @@ func NewTestEtcdFsMount() testEtcdFsMount {
 		fmt.Printf("Temdir fail: %v\n", err)
 	}
 
-	etcdFs := EtcdFs{FileSystem: pathfs.NewDefaultFileSystem(), EtcdEndpoint: testEtcdEndpoint}
+	etcdFs := New(testEtcdEndpoint)
 
-	nfs := pathfs.NewPathNodeFs(&etcdFs, nil)
+	nfs := pathfs.NewPathNodeFs(etcdFs, nil)
 
 	connector := nodefs.NewFileSystemConnector(nfs.Root(), &nodefs.Options{EntryTimeout: testTtl, AttrTimeout: testTtl, NegativeTimeout: 0.0})
 	connector.SetDebug(testVerbose)

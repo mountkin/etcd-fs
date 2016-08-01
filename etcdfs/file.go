@@ -15,7 +15,7 @@ type etcdFile struct {
 	path       string
 }
 
-func NewEtcdFile(client *etcd.Client, path string) nodefs.File {
+func newEtcdFile(client *etcd.Client, path string) nodefs.File {
 	file := new(etcdFile)
 	file.etcdClient = client
 	file.path = path
@@ -24,6 +24,7 @@ func NewEtcdFile(client *etcd.Client, path string) nodefs.File {
 
 func (f *etcdFile) SetInode(*nodefs.Inode) {
 }
+
 func (f *etcdFile) InnerFile() nodefs.File {
 	return nil
 }

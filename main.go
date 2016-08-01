@@ -14,8 +14,8 @@ func main() {
 	if len(flag.Args()) < 2 {
 		log.Fatal("Usage:\n  etcd-fs MOUNTPOINT ETCDENDPOINT")
 	}
-	etcdFs := etcdfs.EtcdFs{FileSystem: pathfs.NewDefaultFileSystem(), EtcdEndpoint: flag.Arg(1)}
-	nfs := pathfs.NewPathNodeFs(&etcdFs, nil)
+	etcdFs := etcdfs.New(flag.Arg(1))
+	nfs := pathfs.NewPathNodeFs(etcdFs, nil)
 	server, _, err := nodefs.MountRoot(flag.Arg(0), nfs.Root(), nil)
 	if err != nil {
 		log.Fatalf("Mount fail: %v\n", err)
